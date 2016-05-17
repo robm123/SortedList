@@ -19,8 +19,6 @@ SortedListPtr SLCreate(CompareFuncT cf, DestructFuncT df)
 //*-**==*=--=-*----=*-*=--*-*-=-*-=-*-*=--*-=-*=--*-=-*-=-=-*-*=--*-=-*-=-*-=-*-*=--*-=-=-=-=-=-=-=-=-=-*-=--*-=-
 
 
-
-
 void SLDestroy(SortedListPtr list)
 {
     Node* nextPtr;
@@ -40,37 +38,31 @@ void SLDestroy(SortedListPtr list)
             free(list->curr);
             list->curr = nextPtr;
         }
-        
-        //free(list);
+           //free(list);
     }
-    //free(list);
-    //return;
 }
 
 
 //*-**==*=--=-*----=*-*=--*-*-=-*-=-*-*=--*-=-*=--*-=-*-=-=-*-*=--*-=-*-=-*-=-*-*=--*-=-=-=-=-=-=-=-=-=-*-=--*-=-
 
+//Inserts a new node into the list 
 int SLInsert(SortedListPtr list, void *newObj)
 {
      Node* addNode= malloc(sizeof(Node));
         
-     
     if(list == NULL)
     {
         printf("NUll List Cannot ADD ELEMENTS!");    
         return 0;
     }
-    
-    
+  
     addNode->data = newObj;      //new node= passed Value
-    
     
     if(list->compare == NULL || list->head == NULL)  //if empty or No Comaprison
     {
         addNode->next = list->head;
         list->head = addNode;
     }
-    
     
     else
     {
@@ -79,14 +71,13 @@ int SLInsert(SortedListPtr list, void *newObj)
         
         while(list->curr != NULL && list->compare(newObj, list->curr->data) <= 0)//go throght the sorted list
         {
-        	
-        	if(    list->compare(newObj, list->curr->data) == 0   )
+        	if(list->compare(newObj, list->curr->data) == 0   )
         	{
         		return 0;
-			}
+		}
         
-            list->prev = list->curr;
-            list->curr= list->curr->next;
+            	list->prev = list->curr;
+            	list->curr= list->curr->next;
         }
         
     	if( list->prev == NULL )                                          
@@ -108,7 +99,7 @@ int SLInsert(SortedListPtr list, void *newObj)
 
 //*-**==*=--=-*----=*-*=--*-*-=-*-=-*-*=--*-=-*=--*-=-*-=-=-*-*=--*-=-*-=-*-=-*-*=--*-=-=-=-=-=-=-=-=-=-*-=--*-=-
 
-
+//removes a node form the list
 int SLRemove(SortedListPtr list, void *newObj)
 {
    //checks if it is in head
@@ -134,11 +125,7 @@ int SLRemove(SortedListPtr list, void *newObj)
         return 0;
 }
 
-
-
-
-
-
+//creates the iterator that will traverse the list
 SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 {
 	SortedListIteratorPtr mptr= malloc(sizeof(struct SortedListIterator));
@@ -155,13 +142,11 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 	return mptr;
 }
 
-
+//destrys the iterator
 void SLDestroyIterator(SortedListIteratorPtr iter)
 {
-	
 	free(iter);	
 	//printf("->%s\n",iter->ptr->data);
-	
 }
 
 void* SLNextItem(SortedListIteratorPtr iter)
@@ -177,18 +162,9 @@ void* SLNextItem(SortedListIteratorPtr iter)
 	return 	iter->ptr;
 }
 
+//returns the next item from the list
 void* SLGetItem(SortedListIteratorPtr iter)
 {	
-
-//    printf("INSIDE GET ITEM\n");
-  //  Node *ptr = (iter->ptr)->data;
-    
-    //printf("%s", *ptr);
-    
-    //printf
-    
-    //printf("%c", iter->ptr);
-    
 	if(iter->tracker == iter->count)
 		return iter->ptr;
 	else if(iter->tracker > iter->count)
@@ -196,50 +172,3 @@ void* SLGetItem(SortedListIteratorPtr iter)
 	else
 		return iter->ptr;
 }
-
-
-/*
-int compareStrings(void *p1, void *p2)
- {
-	char *s1 = p1;
-	char *s2 = p2;
-
-	return strcmp(s1, s2);
-}
-*/
-
-/*
-int main(void )
-{
-
-	
-  SortedListPtr si =SLCreate(compareStrings, NULL);
-  
-  SLInsert(si, "z");
-  SLInsert(si, "a");
-  SLInsert(si, "a");
-  SLInsert(si, "b");
-  SLInsert(si, "x");
-  
-// SLRemove(si, "x");
-   
-  Node *ptr;
-  SortedListIteratorPtr it =  SLCreateIterator(si);
-  
-  ptr = SLGetItem(it);
-  
-  printf("GET CURRENT ITEM: %s", ptr->data);
-
- // SLDestroy(si);
- // printf("GET CURRENT ITEM: %s", ptr->data);
- 
- //SLDestroyIterator(it);
- //printf("GET CURRENT ITEM: %s", ptr->data);
-  
- // ptr = SLNextItem(it);
- // printf("\nGET NEXT ITEM: %s", ptr->data);
-  
-   return 0;
-
-}
-*/
