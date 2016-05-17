@@ -1,5 +1,4 @@
 //Roberto Merino
-//Mina G.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -10,7 +9,6 @@ int compareStrings(void *p1, void *p2)
  {
 	char *s1 = p1;
 	char *s2 = p2;
-
 	return strcmp(s1, s2);
 }
 
@@ -18,7 +16,6 @@ int compareInts(void *a, void *b)
 {
 	int i = *(int*)a;
 	int j = *(int*)b;
-
 	return i - j;
 }
 
@@ -75,9 +72,7 @@ int main(void )
   //TEST CASE 2 WITH INTEGERS 
  
  	int arr[]= {2,3,10,8,4,11,21,8,1,7,16};
-	 
 	int length = sizeof(arr)/sizeof(arr[0]);
-	
 	int i;
 	
 	SortedListPtr si2 =SLCreate(compareInts, destroy);
@@ -86,45 +81,45 @@ int main(void )
 	int x = 100;              //
 	int *insrt;               //   to insert a number 100
 	insrt = &x;              //    after iterated through list
- printf("=-=-=-=-=-=-=-=-=-Testing Integers=-=-=-=-=-=-=-=-=-=-=-=\n");
+ 	printf("=-=-=-=-=-=-=-=-=-Testing Integers=-=-=-=-=-=-=-=-=-=-=-=\n");
  
-  //inserts numbers from arrray into linked list 
+  	//inserts numbers from arrray into linked list 
 	for(i = 0; i < length;i++)
 	{
 		intPtr = &arr[i];
 		SLInsert(si2,intPtr);
 	}
-  printf("Finished inserting numbers into linked list\n");
+  	printf("Finished inserting numbers into linked list\n");
   	
-  Node* ptr2;
-  SortedListIteratorPtr it2 =  SLCreateIterator(si2);
-  ptr2 = SLGetItem(it2);
+	Node* ptr2;
+  	SortedListIteratorPtr it2 =  SLCreateIterator(si2);
+  	ptr2 = SLGetItem(it2);
  
-  //iterator traverses through the list
-  while(ptr2 != NULL)
-  {   
-      printf("%d\n", (*(int*)(ptr2->data)) );
-  	  ptr2 = SLNextItem(it2);
-  } 
-  printf("Finished traversing through linked list\n");  
-  
-  SLInsert(si2, insrt);
-  printf("Number 100 has been inserted into the list\n");
-  
-  //destroys iterator
-  SLDestroyIterator(it2);
-  printf("Iterator has been destroyed\n");
-  
-  //list has not been affectedby iterator by printing values in list
-  printf("First value in list: %d\n",  (*(int*)(si2->head->data))   );
-  printf("Second value in list: %d\n",  (*(int*)(si2->head->next->data))   );
-  
-  
-  //remove item from list
- SLRemove(si2, insrt);
- printf("item containing 100 has been deleted from list\n");
- printf("First item after deletion:%d\n",  (*(int*)(si2->head->data)) );  
- printf("Second item after deletion:%d\n",  (*(int*)(si2->head->next->data)) );  
- printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
+  	//iterator traverses through the list
+  	while(ptr2 != NULL)
+  	{   
+      		printf("%d\n", (*(int*)(ptr2->data)) );
+  	  	ptr2 = SLNextItem(it2);
+  	} 
+	printf("Finished traversing through linked list\n");  
+	  
+	SLInsert(si2, insrt);
+	printf("Number 100 has been inserted into the list\n");
+	  
+	//destroys iterator
+	SLDestroyIterator(it2);
+	printf("Iterator has been destroyed\n");
+	  
+	//list has not been affectedby iterator by printing values in list
+	printf("First value in list: %d\n",  (*(int*)(si2->head->data))   );
+	printf("Second value in list: %d\n",  (*(int*)(si2->head->next->data))   );
+	  
+	  
+	 //remove item from list
+	 SLRemove(si2, insrt);
+	 printf("item containing 100 has been deleted from list\n");
+	 printf("First item after deletion:%d\n",  (*(int*)(si2->head->data)) );  
+	 printf("Second item after deletion:%d\n",  (*(int*)(si2->head->next->data)) );  
+	 printf("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
 	return 0;
 }
