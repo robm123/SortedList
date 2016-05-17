@@ -142,7 +142,7 @@ SortedListIteratorPtr SLCreateIterator(SortedListPtr list)
 	return mptr;
 }
 
-//destrys the iterator
+// SLDestroyIterator destroys a SortedListIterator pointed to by parameter 'iter'.
 void SLDestroyIterator(SortedListIteratorPtr iter)
 {
 	free(iter);	
